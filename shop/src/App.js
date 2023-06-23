@@ -5,6 +5,7 @@ import shoeData from './data.js'
 import { useEffect, useState } from 'react';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
+import { useQuery } from 'react-query'; 
 
 import ShoesData from './components/ShoesData.js';
 import Detail from './components/Detail.js';
@@ -22,7 +23,17 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem('watched', JSON.stringify({}));
-  }, [])
+  }, []);
+
+  // let result = useQuery('작명', () => {
+  //   return axios.get('https://codingapple1.github.io/userdata.json')
+  //     .then((a) => { return a.data })
+  // });
+  // {} 제거로 return 생략
+  let result = useQuery(['작명'], () => 
+    axios.get('https://codingapple1.github.io/userdata.json')
+      .then((a) => { return a.data })
+  );
 
   return (
     <div className="App">
@@ -53,6 +64,7 @@ function App() {
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
+          <Nav className='ms-auto'>Hello {result.isLoading ? '로딩중' : result.data.name}</Nav>
         </Container>
       </Navbar>
 
@@ -67,7 +79,7 @@ function App() {
           <>
             <div style={{ backgroundImage: 'url(' + mainBg + ')', height: '300px', backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
             {
-              watched.id !== undefined ?
+              watched.id !== undefined &&
                 <div className='stickyCard'>
                   <Card>
                     <Card.Img variant="top" src={`https://codingapple1.github.io/shop/shoes${watched.id + 1}.jpg`}></Card.Img>
@@ -76,7 +88,7 @@ function App() {
                       <Card.Text>최근 본 상품</Card.Text>
                     </Card.Body>
                   </Card>
-                </div> : null
+                </div>
             }
             <button onClick={() => {
               let copy = [...shoes];
