@@ -1,5 +1,4 @@
 import { Button, Nav, Navbar, NavDropdown, Container, Row, Col, Card, ListGroup } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import mainBg from './img/bg.png';
 import shoeData from './data.js'
