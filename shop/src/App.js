@@ -82,13 +82,18 @@ function App() {
             <div style={{ backgroundImage: 'url(' + mainBg + ')', height: '300px', backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
             {
               watched.id !== undefined &&
-                <div className='stickyCard'>
+                <div className='fixedCard'>
                   <Card>
                     <Card.Img variant="top" src={`https://codingapple1.github.io/shop/shoes${watched.id + 1}.jpg`}></Card.Img>
                     <Card.Body>
                       <Card.Title>{watched.title}</Card.Title>
                       <Card.Text>최근 본 상품</Card.Text>
                     </Card.Body>
+                    <ListGroup className='list-group-flush'>
+                      <ListGroup.Item>오늘하루 보지 않기<input type='checkbox' /><button onClick={() => {
+                        localStorage.setItem('watched', JSON.stringify({}));
+                      }}>닫기</button></ListGroup.Item>
+                    </ListGroup>
                   </Card>
                 </div>
             }

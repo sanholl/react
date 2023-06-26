@@ -53,13 +53,13 @@ button {
   color: palevioletred;
 }
 
-.stickyCard {
-  width: 30%;
+.fixedCard {
+  width: 35%;
   height: 200px;
-  position: sticky;
-  top: 50px;
+  position: fixed;
+  top: 100px;
   align-self: flex-start;
-  margin-left: 20px;
+  margin-left: 350px;
   background-color: rgba(0, 0, 0, 0.1);
 }
 

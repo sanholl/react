@@ -6,8 +6,8 @@ const ShoesData = (props) => {
   let navigate = useNavigate();
   
   return (
-    <Col sm={4}>
-      <Card style={{ width: '100%', height: '100%' }} onClick={() => {
+    <Col sm={4} style={{ marginTop: '20px' }}>
+      <Card style={{ width: '100%', height: '100%'}} onClick={() => {
         localStorage.setItem('watched', JSON.stringify(props.shoes));
         navigate('/detail/' + (props.shoes.id + 1))
       }}>
