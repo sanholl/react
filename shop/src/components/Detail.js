@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { addCart } from "../store";
 
 const Detail = (props) => {
 
   let { id } = useParams();
   let [count, setCount] = useState(0);
   let [alert, setAlert] = useState(true);
+
+  let cart = useSelector((state) => { return state.cart });
+  let dispatch = useDispatch();
 
   useEffect(() => {
     // console.log('d') // mount, update시 실행
@@ -32,7 +37,10 @@ const Detail = (props) => {
           <button onClick={() => { setCount(count + 1) }}>+</button>
           <button onClick={() => { if (count > 0) { setCount(count - 1) } }}>-</button>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <button className="btn btn-danger">주문하기</button>
+            <button className="btn btn-danger" onClick={() => {
+              let add = { id: props.shoes[id - 1].id, name: props.shoes[id - 1].title, count: 1 };
+              dispatch(addCart(add))
+            }}>주문하기</button>
           </div>
         </div>
       </div>

@@ -10,6 +10,7 @@ import { useQuery } from 'react-query';
 import ShoesData from './components/ShoesData.js';
 import Detail from './components/Detail.js';
 import About from './components/About.js';
+import Cart from './components/Cart.js';
 
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
             <Nav className="me-auto">
               <Nav.Link onClick={() => { navigate('/') }}>Home</Nav.Link>
               <Nav.Link onClick={() => { navigate('/detail') }}>Detail</Nav.Link>
+              <Nav.Link onClick={() => { navigate('/cart') }}>Cart</Nav.Link>
               <NavDropdown title="About" id="basic-nav-dropdown" onClick={() => { navigate('/about') }}>
                 <NavDropdown.Item onClick={() => { navigate('member') }}>Member</NavDropdown.Item>
                 <NavDropdown.Item >
@@ -138,6 +140,7 @@ function App() {
           </>
         } />
         <Route path='/detail/:id' element={<Detail shoes={shoes} />} />
+        <Route path='/cart' element={<Cart />} />
         <Route path='/about' element={<About />}>
           <Route path='member' element={<div>Member</div>} />
           <Route path='location' element={<div>Location</div>} />
