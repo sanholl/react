@@ -25,6 +25,9 @@ function App() {
   useEffect(() => {
     localStorage.setItem('watched', JSON.stringify({}));
   }, []);
+  // useEffect(() => {
+  //   localStorage.setItem('watched', JSON.stringify({}));
+  // }, []);
 
   // let result = useQuery('작명', () => {
   //   return axios.get('https://codingapple1.github.io/userdata.json')
