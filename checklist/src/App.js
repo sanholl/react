@@ -1,10 +1,11 @@
+/* eslint-disable */ 
 import './App.css';
 import { useState } from 'react';
 import { Card, ListGroup } from 'react-bootstrap';
 
 function App() {
 
-  let [check, setCheck] = useState(false);
+  let [checked, setCheck] = useState(false);
   let [list, setList] = useState();
   
   let today = new Date();
@@ -14,19 +15,19 @@ function App() {
   
   return (
     <div className="App center-container">
-        {/* <Card style={{width: '70%', height: '80%', padding: '20px'}}>
-          <Card.Title>{getFullDate}</Card.Title>
-          <Card.Text>{day}</Card.Text>
-          <ListGroup style={{ width: '100%', height: '100%' }}>
-            <ListGroup.Item><input type="checkbox" /><span>checkList</span></ListGroup.Item>
-          </ListGroup>
-      </Card> */}
       <div className='main-card'>
-        <h1>{getFullDate}</h1>
-        <span>{day}</span>
-        <div>
+        <div className='header'>
+          <h1>{getFullDate}</h1>
+          <span>{day}</span>
+          <h6>할 일 2개 남음</h6>
+        </div>
+        <div className='checkList'>
           <input type='checkbox' />
-          <span>checkList</span>
+          <span className={checked ? "checked" : null}>checkList</span>
+        </div>
+        <div className='inputBox'>
+          <input type='text' />
+          <button>입력</button>
         </div>
       </div>
     </div>

@@ -19,6 +19,21 @@
   height: 75%;
   width: 70%;
   padding: 40px 0 40px 0;
+  text-align: start;
+}
+
+.main-card h1 {
+  font-weight: bold;
+}
+
+.main-card h6 {
+  color: #8a2be2;
+  font-weight: bold;
+  margin: 40px 0 20px 0;
+}
+
+.header {
+  margin-left: 30px;
 }
 
 .center-container {
@@ -27,6 +42,14 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+}
+
+.checkList {
+  border-top: #e9ecef solid 1px;
+}
+
+.checkList input {
+  margin: 20px 30px 20px 30px;
 }
 
 .App-header {
