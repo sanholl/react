@@ -5,7 +5,6 @@ import shoeData from './data.js'
 import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import axios from 'axios';
-import { useQuery } from 'react-query'; 
 
 import ShoesData from './components/ShoesData.js';
 import Detail from './components/Detail.js';
