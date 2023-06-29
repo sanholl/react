@@ -31,11 +31,6 @@ function App() {
   
   useEffect(() => {}, [count2]);
 
-  // let result = useQuery('작명', () => {
-  //   return axios.get('https://codingapple1.github.io/userdata.json')
-  //     .then((a) => { return a.data })
-  // });
-  // {} 제거로 return 생략
   let result = useQuery(['작명'], () => 
     axios.get('https://codingapple1.github.io/userdata.json')
       .then((a) => { return a.data })
