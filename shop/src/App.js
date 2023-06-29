@@ -5,6 +5,7 @@ import shoeData from './data.js'
 import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import axios from 'axios';
+import styled from 'styled-components';
 
 import ShoesData from './components/ShoesData.js';
 import Detail from './components/Detail.js';
@@ -23,6 +24,13 @@ function App() {
   let watchedData = localStorage.getItem('watched');
   let watched = JSON.parse(watchedData);
 
+  let BgImg = styled.div`
+    background-image: url(${mainBg});
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+  `;
+
   useEffect(() => {
     localStorage.setItem('watched', JSON.stringify({}));
   }, []);
@@ -40,7 +48,7 @@ function App() {
       <Routes>
         <Route path='/' element={
           <>
-            <div style={{ backgroundImage: 'url(' + mainBg + ')', height: '300px', backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
+            <BgImg/>
             {
                 watched.id !== undefined &&
                 <div className='fixedCard'>
@@ -117,18 +125,6 @@ function App() {
         </Route>
         <Route path='*' element={<div>없는 페이지 404</div>} />
       </Routes>
-
-      {/* <div style={{ backgroundImage: 'url(' + mainBg + ')', height: '300px', backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
-
-      <Row style={{marginTop : '20px'}}>
-        {
-          shoes.map((a, i) => {
-            return (
-              <ShoesData shoes={a} />
-            )
-          })
-        }
-      </Row> */}
 
     </div>
   );
