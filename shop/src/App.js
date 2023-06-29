@@ -11,6 +11,7 @@ import ShoesData from './components/ShoesData.js';
 import Detail from './components/Detail.js';
 import About from './components/About.js';
 import Cart from './components/Cart.js';
+import Header from './components/Header.js';
 
 
 function App() {
@@ -18,16 +19,17 @@ function App() {
   let [shoes, changeValue] = useState(shoeData);
   let navigate = useNavigate();
   let [count, setCount] = useState(0);
+  let [count2, setCount2] = useState(0);
   let [loading, setLoading] = useState(false);
+
   let watchedData = localStorage.getItem('watched');
   let watched = JSON.parse(watchedData);
 
   useEffect(() => {
     localStorage.setItem('watched', JSON.stringify({}));
   }, []);
-  // useEffect(() => {
-  //   localStorage.setItem('watched', JSON.stringify({}));
-  // }, []);
+  
+  useEffect(() => {}, [count2]);
 
   // let result = useQuery('작명', () => {
   //   return axios.get('https://codingapple1.github.io/userdata.json')
@@ -41,50 +43,18 @@ function App() {
 
   return (
     <div className="App">
-
-
-      {/* <Link to="/" className='link'>홈</Link>
-      <Link to="/detail" className='link'>상세페이지</Link> */}
-
-      {/* <Button variant='primary'>버튼</Button> */}
-      <Navbar bg="light" expand="lg">
-        <Container>
-          <Navbar.Brand href='#' onClick={() => { navigate('/') }}>React-Bootstrap</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link onClick={() => { navigate('/') }}>Home</Nav.Link>
-              <Nav.Link onClick={() => { navigate('/detail') }}>Detail</Nav.Link>
-              <Nav.Link onClick={() => { navigate('/cart') }}>Cart</Nav.Link>
-              <NavDropdown title="About" id="basic-nav-dropdown" onClick={() => { navigate('/about') }}>
-                <NavDropdown.Item onClick={() => { navigate('member') }}>Member</NavDropdown.Item>
-                <NavDropdown.Item >
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item onClick={() => { navigate('/about/location') }}>Location</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
-          <Nav className='ms-auto'>Hello {result.isLoading ? '로딩중' : result.data.name}</Nav>
-        </Container>
-      </Navbar>
-
+      <Header/>
       {
         loading ? <div className='loading'>
           <span>Loading...</span>
         </div> : null
       }
-
       <Routes>
         <Route path='/' element={
           <>
             <div style={{ backgroundImage: 'url(' + mainBg + ')', height: '300px', backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
             {
-              watched.id !== undefined &&
+                watched.id !== undefined &&
                 <div className='fixedCard'>
                   <Card>
                     <Card.Img variant="top" src={`https://codingapple1.github.io/shop/shoes${watched.id + 1}.jpg`}></Card.Img>
@@ -93,9 +63,13 @@ function App() {
                       <Card.Text>최근 본 상품</Card.Text>
                     </Card.Body>
                     <ListGroup className='list-group-flush'>
-                      <ListGroup.Item>오늘하루 보지 않기<input type='checkbox' /><button onClick={() => {
-                        localStorage.setItem('watched', JSON.stringify({}));
-                      }}>닫기</button></ListGroup.Item>
+                      <ListGroup.Item>
+                        <input type='checkbox' />
+                        <span>오늘하루 보지 않기</span>
+                        <button onClick={() => {
+                          localStorage.setItem('watched', JSON.stringify({}));
+                          setCount2(count2 + 1)
+                        }}>닫기</button></ListGroup.Item>
                     </ListGroup>
                   </Card>
                 </div>

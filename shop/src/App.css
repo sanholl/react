@@ -26,10 +26,15 @@
 
 button {
   margin: 10px;
-  padding: 5px;
-  border-radius: 5px;
-  border: none;
-  background-color: darkgoldenrod
+  padding: 3px 7px 3px 7px;
+  border-radius: 10px;
+  border: #709CA8 solid 1px;
+  background-color: #7fb1bf;
+}
+
+button:hover {
+  box-shadow: 0 0 #74a3b0;
+  background-color: #709CA8;
 }
 
 .loading {
@@ -51,6 +56,15 @@ button {
   z-index: 100;
   font-weight: 1000;
   color: palevioletred;
+}
+
+.list-group-flush .list-group-item input,
+.list-group-flush .list-group-item span {
+  text-align: left;
+}
+
+.list-group-flush .list-group-item button {
+  text-align: right;
 }
 
 .fixedCard {
