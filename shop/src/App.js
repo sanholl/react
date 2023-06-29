@@ -1,9 +1,9 @@
-import { Button, Nav, Navbar, NavDropdown, Container, Row, Col, Card, ListGroup } from 'react-bootstrap';
+import { Row, Card, ListGroup } from 'react-bootstrap';
 import './App.css';
 import mainBg from './img/bg.png';
 import shoeData from './data.js'
 import { useEffect, useState } from 'react';
-import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import { useQuery } from 'react-query'; 
 
@@ -17,9 +17,8 @@ import Header from './components/Header.js';
 function App() {
 
   let [shoes, changeValue] = useState(shoeData);
-  let navigate = useNavigate();
-  let [count, setCount] = useState(0);
-  let [count2, setCount2] = useState(0);
+  let [count, setCount] = useState(0); // 목록 불러오는 데이터 count
+  let [count2, setCount2] = useState(0); // setState 오류로 인한 useEffect용 count
   let [loading, setLoading] = useState(false);
 
   let watchedData = localStorage.getItem('watched');
@@ -30,11 +29,6 @@ function App() {
   }, []);
   
   useEffect(() => {}, [count2]);
-
-  let result = useQuery(['작명'], () => 
-    axios.get('https://codingapple1.github.io/userdata.json')
-      .then((a) => { return a.data })
-  );
 
   return (
     <div className="App">
