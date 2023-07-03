@@ -14,6 +14,13 @@ import Cart from './components/Cart.js';
 import Header from './components/Header.js';
 
 
+let BgImg = styled.div`
+    background-image: url(${mainBg});
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+  `;
+
 function App() {
 
   let [shoes, changeValue] = useState(shoeData);
@@ -23,13 +30,6 @@ function App() {
 
   let watchedData = localStorage.getItem('watched');
   let watched = JSON.parse(watchedData);
-
-  let BgImg = styled.div`
-    background-image: url(${mainBg});
-    height: 300px;
-    background-size: cover;
-    background-position: center;
-  `;
 
   useEffect(() => {
     localStorage.setItem('watched', JSON.stringify({}));
