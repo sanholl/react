@@ -3,10 +3,12 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import { Card, ListGroup } from 'react-bootstrap';
 import styled, { css } from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 
 import useUniqueIndex from './hooks/useUniqueIndex';
-
 import CheckList from './components/CheckList';
+
+import { plusCount } from "./reduxData";
 
 const AddButton = styled.button`
   background-color: #8a2be2;
@@ -62,27 +64,32 @@ function App() {
   let getFullDate = today.toLocaleDateString('ko-KR', options);
   let day = today.toLocaleDateString('ko-KR', { weekday: 'long' });
 
+  // redux
+  let remainingQuantity = useSelector((state) => { return state.remainingQuantity });
+  let dispatch = useDispatch();
+
   useEffect(() => {
     if (inputValue !== '') {
+      dispatch(plusCount())
       setList([
         ...list,
         { key: generateUniqueIndex(), content: inputValue, type: 'show' }
       ])
     }
   }, [inputValue]);
-  
+
   return (
     <div className="App center-container">
       <div className='main-card'>
         <div className='header'>
           <h1>{getFullDate}</h1>
           <span>{day}</span>
-          <h6>할 일 2개 남음</h6>
+          <h6>할 일 { remainingQuantity }개 남음</h6>
         </div>
         <div className='listBox'>
           {
-          list.length > 0 ? list.map((item) => (
-            <CheckList item={item}/>
+            remainingQuantity > 0 ? list.map((item) => (
+            <CheckList item={item} />
           )) : <h3 className='nothing'>할 일이 없습니다.</h3>
           }
         </div>

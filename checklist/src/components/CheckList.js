@@ -1,6 +1,9 @@
 import { useState } from "react";
 import styled from 'styled-components';
-import { MdDone, MdDelete } from 'react-icons/md';
+import { MdDelete } from 'react-icons/md';
+
+import { minusCount, plusCount } from "../reduxData";
+import { useDispatch } from 'react-redux';
 
 const StyledCheckBox = styled.input`
   appearance: none;
@@ -48,20 +51,30 @@ function CheckList({ item }) {
   let [checked, setChecked] = useState(false);
   let [list, setList] = useState(item);
 
+  let dispatch = useDispatch();
+
   function checkedBoxChange() {
+    if (!checked) {
+      dispatch(minusCount());
+      setList({ ...list, type: 'checked' });
+    } else {
+      dispatch(plusCount());
+      setList({ ...list, type: 'show' });
+    }
     setChecked(!checked);
   }
 
   function remove() {
-    setList({ type: 'hide' });
+    if(list.type === 'show') dispatch(minusCount());
+    setList({ ...list, type: 'removed' });
   }
 
   return (
   <>
-    {list.type !== 'hide' && 
+    {list.type !== 'removed' && 
       <CheckListContainer className="checkList">
         <StyledCheckBox type="checkbox" onChange={checkedBoxChange} />
-        <span className={checked ? "checked" : null}>{list.content}</span>
+          <span className={checked ? "checked" : null}>{list.content}</span>
         <RemoveButton onClick={remove}>
           <MdDelete />
           </RemoveButton>

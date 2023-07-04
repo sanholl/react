@@ -68,6 +68,7 @@ span {
 
 .checkList .checked {
   color: #969595;
+  text-decoration: line-through;
 }
 
 .inputBox {
