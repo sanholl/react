@@ -66,7 +66,7 @@ function App() {
     if (inputValue !== '') {
       setList([
         ...list,
-        { key: generateUniqueIndex(), content: inputValue }
+        { key: generateUniqueIndex(), content: inputValue, type: 'show' }
       ])
     }
   }, [inputValue]);

@@ -46,19 +46,28 @@ const CheckListContainer = styled.div`
 
 function CheckList({ item }) {
   let [checked, setChecked] = useState(false);
+  let [list, setList] = useState(item);
 
   function checkedBoxChange() {
     setChecked(!checked);
   }
 
+  function remove() {
+    setList({ type: 'hide' });
+  }
+
   return (
-    <CheckListContainer className="checkList">
-      <StyledCheckBox type="checkbox" onChange={checkedBoxChange} />
-      <span className={checked ? "checked" : null}>{item.content}</span>
-      <RemoveButton>
-        <MdDelete />
-      </RemoveButton>
-    </CheckListContainer>
+  <>
+    {list.type !== 'hide' && 
+      <CheckListContainer className="checkList">
+        <StyledCheckBox type="checkbox" onChange={checkedBoxChange} />
+        <span className={checked ? "checked" : null}>{list.content}</span>
+        <RemoveButton onClick={remove}>
+          <MdDelete />
+          </RemoveButton>
+        </CheckListContainer>
+      }
+  </>
   )
 }
 
