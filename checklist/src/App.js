@@ -1,13 +1,14 @@
 /* eslint-disable */ 
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, ListGroup } from 'react-bootstrap';
 import styled, { css } from 'styled-components';
 
 import useUniqueIndex from './hooks/useUniqueIndex';
+
 import CheckList from './components/CheckList';
 
-const CircleButton = styled.button`
+const AddButton = styled.button`
   background-color: #8a2be2;
   &:hover {
     background-color: #b370f2;
@@ -60,6 +61,15 @@ function App() {
   let options = { year: 'numeric', month: 'long', day: 'numeric' };
   let getFullDate = today.toLocaleDateString('ko-KR', options);
   let day = today.toLocaleDateString('ko-KR', { weekday: 'long' });
+
+  useEffect(() => {
+    if (inputValue !== '') {
+      setList([
+        ...list,
+        { key: generateUniqueIndex(), content: inputValue }
+      ])
+    }
+  }, [inputValue]);
   
   return (
     <div className="App center-container">
@@ -69,25 +79,24 @@ function App() {
           <span>{day}</span>
           <h6>할 일 2개 남음</h6>
         </div>
-        {
+        <div className='listBox'>
+          {
           list.length > 0 ? list.map((item) => (
             <CheckList item={item}/>
-          )) : <h3 className='nothing'>데이터가 없습니다.</h3>
-        }
+          )) : <h3 className='nothing'>할 일이 없습니다.</h3>
+          }
+        </div>
         {
           open && <div className='inputBox'>
             <input type='text' onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 setInputValue(e.target.value);
-                setList([
-                  ...list,
-                  { key: generateUniqueIndex(), content: inputValue}
-                ])
+                setOpen(false);
               }
             }} placeholder='할 일을 작성 후, Enter를 누르세요' />
           </div>
         }
-        <CircleButton onClick={() => { setOpen(!open) }} open={open}>+</CircleButton>
+        <AddButton onClick={() => { setOpen(!open) }} open={open}>+</AddButton>
       </div>
     </div>
   );
