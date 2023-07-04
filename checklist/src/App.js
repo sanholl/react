@@ -75,6 +75,7 @@ function App() {
         ...list,
         { key: generateUniqueIndex(), content: inputValue, type: 'show' }
       ])
+      setInputValue('');
     }
   }, [inputValue]);
 
