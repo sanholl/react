@@ -59,7 +59,7 @@ function CheckList({ item, onRemove, onChecked }) {
     {item.type !== 'removed' && 
       <CheckListContainer className="checkList">
         <StyledCheckBox type="checkbox" onChange={checkedBoxChange} />
-          <span className={checked ? "checked" : null}>{item.content}{item.type}</span>
+          <span className={checked ? "checked" : null}>{item.content}</span>
           <RemoveButton onClick={() => { onRemove(item.key) }}>
           <MdDelete />
           </RemoveButton>
