@@ -3,12 +3,9 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import { Card, ListGroup } from 'react-bootstrap';
 import styled, { css } from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
 
 import useUniqueIndex from './hooks/useUniqueIndex';
 import CheckList from './components/CheckList';
-
-import { plusCount } from "./reduxData";
 
 const AddButton = styled.button`
   background-color: #8a2be2;
@@ -64,13 +61,30 @@ function App() {
   let getFullDate = today.toLocaleDateString('ko-KR', options);
   let day = today.toLocaleDateString('ko-KR', { weekday: 'long' });
 
-  // redux
-  let remainingQuantity = useSelector((state) => { return state.remainingQuantity });
-  let dispatch = useDispatch();
+  let remainingQuantity = list.filter((item) => { return item.type === 'show' }).length;
+  let notRemoved = list.filter((item) => { return item.type !== 'hide' }).length;
+
+  function handleRemove(id) {
+    setList(
+      list.map(item => (
+        item.key === id ? { ...item, type: 'removed' } : item
+      ))
+    );
+  };
+  function handleChecked(id, checked) {
+    setList(
+      list.map(item => {
+        if (checked) {
+          return item.key === id ? { ...item, type: 'show' } : item
+        } else {
+          return item.key === id ? { ...item, type: 'checked' } : item
+        }
+      })
+    );
+  };
 
   useEffect(() => {
     if (inputValue !== '') {
-      dispatch(plusCount())
       setList([
         ...list,
         { key: generateUniqueIndex(), content: inputValue, type: 'show' }
@@ -78,6 +92,8 @@ function App() {
       setInputValue('');
     }
   }, [inputValue]);
+
+  useEffect(()=>{},[list])
 
   return (
     <div className="App center-container">
@@ -89,8 +105,8 @@ function App() {
         </div>
         <div className='listBox'>
           {
-            remainingQuantity > 0 ? list.map((item) => (
-            <CheckList item={item} />
+            notRemoved > 0 ? list.map((item) => (
+              <CheckList item={item} onRemove={handleRemove} onChecked={handleChecked} />
           )) : <h3 className='nothing'>할 일이 없습니다.</h3>
           }
         </div>
