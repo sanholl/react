@@ -16,12 +16,20 @@
     'use strict';
 
     class LikeButton extends React.Component {
-      constructor(props) {
-        super(props);
-        this.state = {
-          liked: false
-        };
+      // constructor(props) {
+      //   super(props);
+      //   this.state = {
+      //     liked: false
+      //   };
+      //   // this.onClickButton = this.onClickButton.bind(this); // 바인딩
+      // }
+
+      state = {liked: false};
+
+      onClickButton = () => {
+        this.setState({liked: true})
       }
+      
       render() {
         if (this.state.liked) {
           return 'You liked this.';
@@ -29,7 +37,7 @@
         // addEventListener('click', this.setState({liked: true}))
         return (
           // 자바스크립트 코드는 {} 묶어줘야 한다.
-          <button onClick={() => this.setState({liked: true})}>
+          <button onClick={this.onClickButton}>
             Like {1 + 1}
           </button>
         );
