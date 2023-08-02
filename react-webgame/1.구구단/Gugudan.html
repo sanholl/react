@@ -22,7 +22,7 @@
 				const [preVal, setPreVal] = React.useState('');
 				const inputEl = React.useRef(null);
 
-				const onChange = (e) => {
+				const onChangeVal = (e) => {
 					setValue(e.target.value);
 				};
 				const onSubmitForm = (e) => {
@@ -48,7 +48,7 @@
 							{first} 곱하기 {second}는?
 						</div>
 						<form onSubmit={onSubmitForm}>
-							<input ref={inputEl} type='number' value={value} onChange={onChange} />
+							<input ref={inputEl} type='number' value={value} onChange={onChangeVal} />
 							<button>입력</button>
 						</form>
 						<div>결과: {result + preVal}</div>
