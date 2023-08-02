@@ -17,12 +17,19 @@ module.exports = {
       test: /\.jsx?/,
       loader: 'babel-loader',
       options: {
-        presets: ['@babel/preset-env', '@babel/preset-react'],
+        presets: [
+          ['@babel/preset-env', {
+            targets: {
+              browsers: ['> 1% in KR'], // browserslist
+            },
+            debug: true,
+          }],
+          '@babel/preset-react',
+        ],
         plugins: ['@babel/plugin-proposal-class-properties']
       }
     }],
   },
-  
   output: { // 출력
     path: path.join(__dirname, 'dist'), // __dirname : 현재폴더
     filename: 'app.js'
