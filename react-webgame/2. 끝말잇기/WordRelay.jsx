@@ -6,18 +6,15 @@ const WordRelay = () => {
 	const [lastWord, setLastWord] = useState('');
 	const inputRef = useRef(null);
 
-	const onChangeVal = (e) => {
-		setCurrentWord(e.target.value);
-	};
 	const onSubmitForm = (e) => {
 		e.preventDefault();
 
-		if (lastWord[lastWord.length - 1] === currentWord[0] || lastWord === '') {
-			setLastWord(currentWord);
-			setCurrentWord('');
+		if (lastWord[lastWord.length - 1] === e.target.children.word.value[0] || lastWord === '') {
+			setLastWord(e.target.children.word.value);
+			e.target.children.word.value = '';
 		} else {
 			alert('땡!');
-			setCurrentWord('');
+			e.target.children.word.value = '';
 		}
 
 		inputRef.current.focus();
@@ -28,7 +25,7 @@ const WordRelay = () => {
 			<div>이전 단어 : {lastWord}</div>
 			<div>다음 단어: {currentWord}</div>
 			<form onSubmit={onSubmitForm}>
-				<input ref={inputRef} type='text' value={currentWord} onChange={onChangeVal} />
+				<input id='word' ref={inputRef} type='text' autoComplete='off' />
 				<button>입력</button>
 			</form>
 		</>
