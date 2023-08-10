@@ -59,6 +59,7 @@ const NumberBaseball = () => {
 							ball += 1;
 						}
 					}
+					// 이전 값을 이용해서 새로운 값을 만들 경우 함수형 state를 사용하자
 					setTries((t) => [
 						...t,
 						{
