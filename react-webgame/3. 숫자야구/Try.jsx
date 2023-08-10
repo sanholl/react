@@ -9,5 +9,6 @@ const Try = memo(({ tryProps, resultProps }) => {
 		</li>
 	);
 });
+Try.displayName = 'Try'; // memo를 사용할 경우 displayName이 변경되어 개발자 도구에서 확인이 어려워짐
 
 export default Try;
