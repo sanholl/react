@@ -7,7 +7,7 @@ const getNumbers = () => {
 	const array = [];
 
 	for (let i = 0; i < 4; i++) {
-		const chosen = number.splice(Math.ceil(Math.random() * (9 - i)), 1)[0];
+		const chosen = number.splice(Math.floor(Math.random() * (9 - i)), 1)[0];
 		array.push(chosen);
 	}
 	return array;
