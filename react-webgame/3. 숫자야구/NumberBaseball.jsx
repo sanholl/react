@@ -16,7 +16,7 @@ const getNumbers = () => {
 const NumberBaseball = () => {
 	const [value, setValue] = useState('');
 	const [result, setResult] = useState('');
-	const [answer, setAnswer] = useState(getNumbers());
+	const [answer, setAnswer] = useState(getNumbers); // lazy init
 	const [tries, setTries] = useState([]);
 	const refInput = useRef(null);
 
