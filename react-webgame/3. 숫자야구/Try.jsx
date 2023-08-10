@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { memo } from 'react';
 
-const Try = ({ tryProps, resultProps }) => {
+const Try = memo(({ tryProps, resultProps }) => {
 	return (
 		<li>
 			<div>
@@ -8,6 +8,6 @@ const Try = ({ tryProps, resultProps }) => {
 			</div>
 		</li>
 	);
-};
+});
 
 export default Try;
