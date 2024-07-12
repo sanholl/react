@@ -1,62 +1,80 @@
 /**
- * 둘레가 가장 큰 사각형을 구하려고 합니다.
- * N개의 정수로 만들 수 있는 둘레가 가장 큰 사각형의 둘레를 구하는 함수를 완성해주세요.
+ * r * c 크기의 온실에 식물을 키우고 있습니다. 식물이 잘 자라도록 n * n 만큼 커버가 가능한 램프를 설치하려고 합니다.
+ * r * c 크기의 field에 식물이 없는 경우 0으로, 식물이 있는 경우 1로 주어지고, 램프의 크기 n이 주어질 때,
+ * 최대한 커버 가능한 식물의 수를 구하는 함수를 완성해주세요.
+ * 예를 들어, 3 * 3 크기의 온실 [[1, 0, 1], [0, 0, 1], [0, 1, 1]]이 그림 (a) 와 같이 주어지고
+ * 램프의 크기 2가 주어질 때, 최대한 커버 가능한 식물의 수는 그림 (b)와 같이 3입니다.
  * 
- * 예를 들어, arr [3, 2, 3, 1]이 주어질 때, 결과는 9입니다.
+ * 주어진 식물은 옮겨 심을 수 없습니다.
  * 
- * 사각형을 만들 수 없는 경우 0을 반환
- * arr는 길이가 4이상 1,000이하인 배열
- * arr의 요소는 1이상 1,000,000이하인 정수
- * 둘레가 가장 큰 사각형의 둘레를 int형식으로 구함
+ * 온식의 식물 정보 field가 주어집니다.
+ * field는 0과 1로 이루어진 r * c 크기의 2차원 배열입니다.
+ * 온실의 크기 r과 c는 1이상 100이하의 정수입니다.
+ * 램프의 크기 n이 주어집니다.
+ * n은 1이상 r과 c이하의 정수입니다.
+ * 
+ * 램프로 최대한 커버 가능한(괄호 안) 식물의 수를 int형식으로 출력
+ * 
+ *  1 0 1         1 0 1
+ *  0 0 1         0(0 1)
+ *  0 1 1         0(1 1)
+ *   (a)           (b)
  */
-// function solution(arr) {
-//   // 배열을 내림차순으로 정렬합니다.
-//   arr.sort((a, b) => b - a);
-  
-//   let sides = [];
-  
-//   // 배열을 순회하며 두 쌍의 동일한 변을 찾습니다.
-//   for (let i = 0; i < arr.length - 1; i++) {
-//       if (arr[i] === arr[i + 1]) {
-//           sides.push(arr[i]);
-//           i++; // 다음 요소는 건너뜁니다.
-//       }
-//       if (sides.length === 2) {
-//           // 두 쌍을 찾으면 반복을 종료합니다.
-//           break;
+const field = [[1, 0, 1], [0, 0, 1], [0, 1, 1]];
+const n = 2;
+
+// function solution(field, n) {
+//   const r = field.length;
+//   const c = field[0].length;
+//   let maxPlants = 0;
+
+//   // Iterate over all possible positions to place the top-left corner of the lamp
+//   for (let i = 0; i <= r - n; i++) {
+//       for (let j = 0; j <= c - n; j++) {
+//           let coveredPlants = 0;
+
+//           // Count the number of plants covered by the lamp at position (i, j)
+//           for (let x = 0; x < n; x++) {
+//               for (let y = 0; y < n; y++) {
+//                   coveredPlants += field[i + x][j + y];
+//               }
+//           }
+
+//           // Update the maximum number of covered plants
+//           maxPlants = Math.max(maxPlants, coveredPlants);
 //       }
 //   }
-  
-//   // 두 쌍의 동일한 변을 찾지 못한 경우, 사각형을 만들 수 없습니다.
-//   if (sides.length < 2) {
-//       return 0;
-//   }
-  
-//   // 두 쌍의 변을 사용하여 둘레를 계산합니다.
-//   return (sides[0] + sides[1]) * 2;
+
+//   return maxPlants;
 // }
 
-function solution(arr) {
-  arr.sort((a, b) => b - a).map(Number);
+function solution(field, n) {
+  const r = field[0].length;
+  const c = field.length;
+  let rp = 0;
+  let cp = 0;
+  
+  let result = [];
+  
+  while (rp+n <= r) {
+    let answer = 0;
+    for(let i = rp; i < rp+n; i++) {
+      for(let j = cp; j < cp+n; j++) {
+        answer += field[i][j];
+      }
+    }
 
-  let sameSides = []
-  for(let i = 0; i < arr.length; i++) {
-    if(arr[i] === arr[i+1]) {
-      sameSides.push(...arr.splice(i, 2));
-      i++;
+    if(cp+n === c) {
+      rp++;
+      cp = 0;
+    } else {
+      cp++;
     }
-    if(sameSides.length === 2) {
-      break;
-    }
+
+    result.push(answer);
   }
 
-  if(sameSides.length < 2) {
-    return 0;
-  }
-
-  return (sameSides[0] + sameSides[1] + arr[0] + arr[1]);
+  return Math.max(...result);
 }
 
-const arr = [3, 2, 3, 1];
-
-console.log(solution(arr))
+console.log(solution(field, n));
